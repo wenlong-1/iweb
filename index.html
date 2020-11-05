@@ -52,15 +52,59 @@
 			outline:none;
 			padding-left: .6em ;
 			padding-right: .6em;
+			vertical-align: middle;
 		}
 		.search>.fa-search{
+			vertical-align: middle;	/*行内块元素与同一行中的其它内容竖直方向对齐*/
 			background: #57bc4c;
 			color: #fff;
 			font-size: 2.2em;
 			width: 50px;
 			height: 32px;
-			line-height: 32px;		/*文字竖直方向居中*/
-			text-align: center;		/*文字水平方向居中*/
+			line-height: 32px;	/*文字竖直方向居中*/
+			text-align: center;	/*文字水平方向居中*/
+		}
+		.cart-container{
+			/* 修改购物车容器的定位方式，为下拉菜单提供定位参照物，但不脱离文档流 */
+			position: relative;
+			float:right;
+			margin-top: 7px;
+			margin-left: 20px;
+		}
+		.cart{
+			background: #f9f9f9;
+			border: 1px solid #ddd;
+			line-height: 32px;
+			/* 修改光标样式 */
+			cursor:pointer;
+			position: relative;/*只有定位了的元素才能使用z-index*/
+			z-index:1;
+			border-bottom:none;	/*先边框变成白色*/
+		}
+		.cart>.fa{
+			padding-left: .6em;
+			padding-right: .6em;
+			color: #57BC4C;
+		}
+		.cart>.caret{	/*动画基础类*/
+			transform: rotatee(0);
+			transition: all .3s;
+		}
+		.cart>.caret-rotate{	/*动画目标类*/
+			transform: rotate(180deg);
+		}
+		.cart-container>.dropdown{
+			position: absolute;	/*绝对定位的元素可以处于其他元素上方*/
+			top: 31px;
+			right: 0;
+			border: 1px solid #ddd;
+			padding-top: 2em;
+			padding-right: 3em;
+			padding-bottom: 2em;
+			padding-left: 3em;
+			/* padding: 2em 3em 2em 3em; 上右下左*/
+			width: 262px;
+			background: #fff;	/*DIV默认背景颜色为透明*/
 		}
 	</style>
 </head>
@@ -89,15 +133,34 @@
 	<!--搜索条-->
 	<div class="searchbar">
 		<div class="container">
+			<!--LOGO-->
 			<img src="img/logo.png" alt="iweb logo">
+			<!-- 我的购物车 -->
+			<div class="cart-container">
+				<!---->
+				<div class="cart" id="mycart">
+					<span class="fa fa-shopping-cart fa-lg"></span>
+					<span>我的购物车(<b>0</b>)</span>
+					<span class="fa fa-caret-down caret" id="caret"></span>
+				</div>
+				<!--下拉菜单-->
+				<div class="dropdown">
+					请登录后查看您的购物车
+				</div>
+			</div>
 			<!-- 输入框 -->
 			<div class="search">
 				<input type="text" placeholder="课程搜索"><span class="fa fa-search fa-lg"></span>
 			</div>
-			<!-- 我的购物车 -->
-			
 		</div>
 	</div>
-	ABC
+	<script>
+		mycart.onmouseenter=()=>{
+			caret.classList.add('caret-rotate')
+		}
+		mycart.onmouseleave=()=>{
+			caret.classList.remove('caret-rotate')
+		}
+	</script>
 </body>
 </html>

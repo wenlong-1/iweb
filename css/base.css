@@ -1,4 +1,7 @@
 /* 此文件中包含所有页面都共用的全局css */
+*{
+	box-sizing: border-box;/*边框盒子*/
+}
 body{
 	margin: 0;
 	color: #555;
